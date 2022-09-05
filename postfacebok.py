@@ -5,6 +5,7 @@ import win32com.client as comclt
 from time import sleep
 import sys,pyautogui, time 
 from webdriver_manager.chrome import ChromeDriverManager 
+import json
 def main():
     # Set up Facebook login account name and password
     account = "shayona163@gmail.com"
@@ -19,11 +20,19 @@ def main():
         "https://www.facebook.com/Wordpress-beginner-102735147894097",
     ]    
     imageFolderPath = 'C:/Users/MS/Downloads/pinterest-downloader-master/pinterest-downloader-master/images/vvmahesh/Couple Photography Poses'
-    nameImagesToPost = '"2.jpg"'
     
     
-    #Log of post correct
-    file = open("gruposLogs.txt", "w") 
+   
+    with open('sample.json', 'r') as openfile:
+        json_object = json.load(openfile)
+
+    nameImagesToPost = '"'+str(json_object['trun'])+'.jpg"'
+    print(json_object)
+    with open("sample.json", "w") as outfile:
+        json_object['trun'] = json_object['trun']+1
+        print(json_object)
+        outfile.write(json.dumps(json_object))
+    #exit()
     contador = 0;
     for group in groupPostList:
         # Login Facebook
@@ -42,8 +51,7 @@ def main():
         login.click()
         time.sleep(1)         
         try:
-            driver.get(group)
-            file.write('\n'+group)                      
+            driver.get(group)                     
             time.sleep(2)
             contador +=1            
             searchBar = driver.find_element(By.XPATH,'//*[@class="qi72231t nu7423ey tav9wjvu flwp5yud tghlliq5 gkg15gwv s9ok87oh s9ljgwtm lxqftegz bf1zulr9 frfouenu bonavkto djs4p424 r7bn319e bdao358l fsf7x5fv s5oniofx m8h3af8h l7ghb35v kjdc1dyq kmwttqpk dnr7xe2t om3e55n1 cr00lzj9 rn8ck1ys s3jn8y49 g4tp4svg jl2a5g8c f14ij5to l3ldwz01 icdlwmnq i85zmo3j h8391g91 m0cukt09 kpwa50dg ta68dy8c alzwoclg jg3vgc78 cgu29s5g i15ihif8 jcxyg2ei g10o6gae q46jt4gp b0eko5f3 r5g9zsuq fwlpnqze"]')     #find button of group
