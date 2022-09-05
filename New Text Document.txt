@@ -1,0 +1,1 @@
+python3 pinterest-downloader.py path=https://in.pinterest.com/vvmahesh/couple-photography-poses/
